@@ -329,7 +329,33 @@ router.ws('/ws/:shortlink',function(ws,req){
  	\label{list:message-ws}
  \end{ListingEnv}
 
-Про debounce
+В случае изменения данных в модели, например slave-клиент проголосовал в опросе, нужно послать всем пользователям обновленные данные. Если просто вызывать функцию отправки данных всем view-клиентам в конце callback-функции обработки сообщения от одного slave-клиента, то при даже паре пользователей, непрерывно меняющих голос в опросе, сервер перестанет справляется с объемами отправляемой информации и пользователям будет приходить запоздалая и неактуальная информация.
+
+Чтобы решить эту проблему, я воспользовался пакетом debounce(https://www.npmjs.com/package/debounce) для Node.js. Debounce предоставляет обертку для функций, не позволяющую вызывать функцию чаще чем в определенный промежуток времени. Вызовы, произошедшие в промежуток, откладываются в очередь и выполняются через этот промежуток.
+ \begin{ListingEnv}[H]
+	\begin{lstlisting}[language=JavaScript]
+polling_session_object.send_state_all = debounce(function() {
+ var state = { title: polling_session_object.state.title, options: polling_session_object.state.options };
+ for (var id in polling_session_object.views) {
+		...
+ view.send(JSON.stringify({ session_id: id, type: "new_state", state: state }));
+  }
+ for (var id in polling_session_object.slaves) {
+		...
+ view.send(JSON.stringify({ session_id: id, type: "new_state", state: state }));
+ }
+ this.send_state_all.clear();
+},200);
+\end{lstlisting}
+\caption{Использование debounce для контроля отправки нового состояния всем пользователям}
+\label{list:debounce-exmpl}
+\end{ListingEnv}      
+
+Также важно очищать очередь вызовов после отработки кода через debounce.clear как в примере на листинге~\ref{list:debounce-exmpl}. Тогда нескольким вызовам обернутой функции соотвествует только одно исполнение кода.
+
+\subsection{Создание пользовательского интерфейса}
+
+
 % Если typeOfWork в SETUP.tex задан как 2 или 3, то начинать
 % надо не с section (раздел), а с главы (chapter)
 \section{Несколько примеров в~\LaTeX{}}
