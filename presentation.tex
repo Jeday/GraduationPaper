@@ -81,6 +81,28 @@
 \usepackage [T2A] {fontenc}   % Кириллица в PDF файле
 \usepackage [utf8] {inputenc} % Кодировка текста: utf-8
 \usepackage [russian] {babel} % Переносы, лигатуры
+
+
+\usepackage{listings}
+\usepackage{color}
+\definecolor{lightgray}{rgb}{.9,.9,.9}
+\definecolor{darkgray}{rgb}{.4,.4,.4}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+\lstdefinelanguage{JavaScript}{
+	keywords={break, case, catch, continue, debugger, default, delete, do, else, false, finally, for, function, if, in, instanceof, new, null, return, switch, this, throw, true, try, typeof, var, void, while, with, let, const},
+	morecomment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	morestring=[b]',
+	morestring=[b]",
+	ndkeywords={class, export, boolean, throw, implements, import, this,require, on},
+	keywordstyle=\color{blue}\bfseries,
+	ndkeywordstyle=\color{cyan}\bfseries,
+	identifierstyle=\color{black},
+	commentstyle=\color{purple}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	sensitive=true
+}
+
 %----------------------------------------------------------------------------------------
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
@@ -150,6 +172,21 @@
 
 %------------------------------------------------
 
+\subsection{Express}
+\begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
+\frametitle{Использование Express}
+
+\begin{lstlisting}[language=JavaScript,columns=fullflexible]
+router.get("/get_polled/:poll",function(req, res, next){
+ let id = db.create_polling_session(req.params.poll);
+ res.status(200).json({link:db.sessions[id].link});
+});
+\end{lstlisting}
+\end{frame}
+
+%------------------------------------------------
+
+
 \subsection{Разработка модели данных}
 \begin{frame}
 \frametitle{Разработка модели данных}
@@ -211,17 +248,34 @@
 \begin{frame}
 \frametitle{Использование отсроченного вызова}
 \begin{description}
-	\item[Debounce] пакет для Node.js, предоставляющий обертку для функций, которая откладывает их исполнение на указанный промежуток. 
-	\centering
+	\item[Debounce] пакет для Node.js, предоставляющий обертку для функций, которая откладывает их исполнение на указанный промежуток.
+\end{description} 
 	 \begin{figure}
 	 	\includegraphics[width=\linewidth]{img/debounce.png}
 	 \end{figure}
-\end{description}
-
 \end{frame}
 
 
+\subsection{Интерфейс Пользователя}
+\begin{frame}
+\frametitle{Устройство клиентской части}
+\begin{figure}
+	\includegraphics[width=\linewidth]{img/ui.png}
+\end{figure}
+\end{frame}
 
+\begin{frame}
+\frametitle{Со стороны пользователя}
+\begin{figure}
+	\includegraphics[width=0.7\linewidth]{img/view.PNG}
+\end{figure}
+\end{frame}
+
+\section{Результаты}
+\begin{frame}
+\frametitle{Полученные результаты}
+
+\end{frame}
 
 
 \begin{frame}
@@ -288,35 +342,14 @@ $E = mc^2$
 
 %------------------------------------------------
 
-\begin{frame}
-\frametitle{Figure}
-Uncomment the code on this slide to include your own image from the same directory as the template .TeX file.
-%\begin{figure}
-%\includegraphics[width=0.8\linewidth]{test}
-%\end{figure}
-\end{frame}
 
 %------------------------------------------------
 
-\begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
-\frametitle{Citation}
-An example of the \verb|\cite| command to cite within the presentation:\\~
 
-This statement requires citation \cite{p1}.
-\end{frame}
 
 %------------------------------------------------
 
-\begin{frame}
-\frametitle{References}
-\footnotesize{
-\begin{thebibliography}{99} % Beamer does not support BibTeX so references must be inserted manually as below
-\bibitem[Smith, 2012]{p1} John Smith (2012)
-\newblock Title of the publication
-\newblock \emph{Journal Name} 12(3), 45 -- 678.
-\end{thebibliography}
-}
-\end{frame}
+
 
 %------------------------------------------------
 
