@@ -73,7 +73,7 @@
 %\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
 \setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
 
-%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
 }
 
 \usepackage{graphicx} % Allows including images
@@ -108,14 +108,15 @@
 %----------------------------------------------------------------------------------------
 
 \title[Выпускная квалификационная работа]{Разработка системы проведения опросов аудитории во время публичных выступлений} % The short title appears at the bottom of every slide, the full title is only on the title page
-
-\author{Е.А.~Тактаров, к.ф.-м.н., доцент Е.\,М.~Андреева} % Your name
+\subtitle{Выпускная квалификационная работа}
+\author{Е.А.~Тактаров\\Научный руководитель ---  к.ф.-м.н., доцент Е.\,М.~Андреева} % Your name
 \institute[ИММиКН] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
 {
+Южный Федеральный Университет\\
 Институт математики, механики и компьютерных наук им. И.И. Воровича  \\ % Your institution for the title page
-Южный Федеральный Университет
+02.03.02 — Фундаментальная информатика и информационные технологии
 }
-\date{2019} % Date, can be changed to a custom date
+\date{Ростов-на-Дону --- 2019} % Date, can be changed to a custom date
 
 \begin{document}
 
@@ -172,7 +173,7 @@
 
 %------------------------------------------------
 
-\subsection{Express}
+\subsection{Веб-фреймворк Express}
 \begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
 \frametitle{Использование Express}
 
@@ -183,26 +184,10 @@ router.get("/get_polled/:poll",function(req, res, next){
 });
 \end{lstlisting}
 \end{frame}
-
-%------------------------------------------------
-
-
-\subsection{Разработка модели данных}
-\begin{frame}
-\frametitle{Разработка модели данных}
-	\begin{itemize}
-		\item Достаточно использовать JavaScript объект, чтобы хранить состояние приложения.
-		\item Инкапсулирует всю логику приложения.
-		\item Определяется и создается в отдельном модуле \textbf{database.js} и экспортируется из него(всегда один экземпляр)
-		\item Внутри рекурсивно списки, Хеш-мапы, объекты со свойствами и методами.
-	\end{itemize}
-\end{frame}
-
 %------------------------------------------------
 
 \begin{frame}
-\frametitle{Разработка модели данных}
-	Требования к модели:
+\frametitle{Требования к модели данных}
 \begin{enumerate}
 	\item В модели может существовать неограниченное количество параллельных сессий, которые могут перемещаться между своими опросами.
 	\item Каждая сессия имеет две короткие ссылки для просмотра и участия в опросе. 
@@ -212,6 +197,26 @@ router.get("/get_polled/:poll",function(req, res, next){
 	\item Модель должна быть устойчивой к добавлению новых видов взаимодействия пользователей с сервисом.
 \end{enumerate}
 \end{frame}
+
+%------------------------------------------------
+
+\subsection{Разработка модели данных}
+\begin{frame}
+\frametitle{Разработка модели данных}
+	Особенности модели данных в приложении:
+	\begin{itemize}
+		\item JavaScript объект.
+		\item Внутри рекурсивно списки, словари, объекты со свойствами и методами.
+		 и экспортируется из него(всегда один экземпляр)
+		\item Методы объектов инкапсулируют любое взаимодействие пользователей и модели.
+		\item Каждый пользователь определяется объектом Websocket.
+		\item События WebSocket'ов вызывают методы модели. 
+		\item Модель определяется и инициализируется в отдельном модуле \textbf{database.js}.
+		\item Модуль экспортирует один экземпляр модели в любой точке кода(нестрогий синглтон).
+	\end{itemize}
+\end{frame}
+
+
 
 
 %------------------------------------------------
@@ -235,7 +240,7 @@ router.get("/get_polled/:poll",function(req, res, next){
 \end{figure}
 \end{frame}
 
-\subsection{Debounce}
+\subsection{Отложенный вызов с Debounce}
 \begin{frame}
 \frametitle{Проблема переполнения запросов}
 \begin{figure}
@@ -256,7 +261,7 @@ router.get("/get_polled/:poll",function(req, res, next){
 \end{frame}
 
 
-\subsection{Интерфейс Пользователя}
+\subsection{Интерфейс пользователя}
 \begin{frame}
 \frametitle{Устройство клиентской части}
 \begin{figure}
