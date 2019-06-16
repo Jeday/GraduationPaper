@@ -124,10 +124,6 @@
 \titlepage % Print the title page as the first slide
 \end{frame}
 
-\begin{frame}
-\frametitle{Содержание} % Table of contents slide, comment this block out to remove it
-\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
-\end{frame}
 
 %----------------------------------------------------------------------------------------
 %	PRESENTATION SLIDES
@@ -154,8 +150,9 @@
 \begin{description}
 	\item[Node.js] Программная платформа общего назначения для языка JavaScript. 
 	\item[Express] Веб-фреймворк Node.js для создания серверной части веб-приложения.
-	\item[WebSocket] Протокол связи поверх TCP-соединения, предназначенный для обмена сообщениями между браузером и веб-сервером в режиме реального времени.
 	\item[Vue.Js] Веб-фреймворк для создания пользовательского интерфейса в браузерах.  
+	\item[WebSocket] Протокол связи поверх TCP-соединения, предназначенный для обмена сообщениями между браузером и веб-сервером в режиме реального времени.
+
 \end{description}
 \end{frame}
 
@@ -273,12 +270,16 @@ router.get("/get_polled/:poll",function(req, res, next){
 \begin{columns}[c]
 
 \column{.65\textwidth} % Left column and width
+\centering
+\textbf{Страница просмотра}
 \begin{figure}
 	\includegraphics[width=\linewidth]{img/view.PNG}
 \end{figure}
 
 
-\column{.30\textwidth} % Left column and width
+\column{.35\textwidth} % Left column and width
+\centering
+\textbf{Страница голосования}
 \begin{figure}
 	\includegraphics[width=\linewidth]{img/slave.PNG}
 \end{figure}
@@ -292,12 +293,11 @@ router.get("/get_polled/:poll",function(req, res, next){
 \begin{frame}
 \frametitle{Полученные результаты}
 	\begin{itemize}
-		\item Веб-сервис позволяет создавать, проводить и управлять опросами.
-		\item Одновременно может проводится неограниченное количество опросов.
-		\item Пользователи могут сразу же поучаствовать в опросе со своего мобильного устройства, перейдя по короткой ссылке, указанной на экране опроса.
-		\item Результаты голосования отображаются динамически на странице просмотра результатов.
-		\item Реализована основная защита от вредоносного вмешательства в процесс опроса, не позволяющая испортить результаты или остановить ход опроса.
-		\item Веб-сервис имеет открытые исходные коды на сайте \textbf{GitHub.com} и доступен для развертывания, использования и модификации по свободной лицензии MIT. 
+		\item Создан веб-сервис, позволяющий параллельно создавать, запускать и управлять неограниченным количеством опросов.
+		\item Реализована возможность пользователям сразу же участвовать в опросе со своего мобильного устройства по короткой ссылке, указанной на экране опроса.
+		\item Использована технология WebSocket, для динамического отображения результатов опросов.
+		\item Реализована основная защита от вредоносного вмешательства в процесс опроса.
+		\item Исходные коды веб-сервиса размещены на \textbf{GitHub.com} и доступны для развертывания, использования и модификации по свободной лицензии MIT. 
 	\end{itemize}   
 \end{frame}
 
